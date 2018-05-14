@@ -1,0 +1,38 @@
+{
+  "name": "lambda_barber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "shaveImage.js",
+  "dependencies": {
+    "are-we-there-yet": "^1.1.4",
+    "bl": "^1.2.2",
+    "color": "^3.0.0",
+    "end-of-stream": "^1.4.1",
+    "fs-copy-file-sync": "^1.1.1",
+    "fs-minipass": "^1.2.5",
+    "gauge": "^2.7.4",
+    "minipass": "^2.3.0",
+    "minizlib": "^1.1.0",
+    "nan": "^2.10.0",
+    "npmlog": "^4.1.2",
+    "once": "^1.4.0",
+    "prebuild-install": "^2.5.3",
+    "pump": "^2.0.1",
+    "sharp": "^0.20.2",
+    "simple-get": "^2.8.1",
+    "tar": "^4.4.2",
+    "tar-fs": "^1.16.2",
+    "tar-stream": "^1.6.0",
+    "which-pm-runs": "^1.0.0",
+    "wide-align": "^1.1.2",
+    "wrappy": "^1.0.2",
+    "xtend": "^4.0.1",
+    "yallist": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
