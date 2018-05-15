@@ -5,8 +5,8 @@
 ```bash
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install 6.1.0
-nvm use 6.1.0
+nvm install 8.1.0
+nvm use 8.1.0
 npm init
 npm install sharp
 ```
@@ -14,6 +14,16 @@ npm install sharp
 ## Deploy
 If you are updating vs. creating, make sure you have the proper aws CLI method commented in *deploy.sh*
 ```bash
-chmod 744 deploy.sh
-./deploy.sh
+#creates deployment ready zip files from Lambda function code and dependencies
+make
+
+#tries to create Lambda function using AWS cli. Use only when zero Lambda exist.
+make create
+#creates Lambda function for specific module.
+make c."module_name"
+
+#updates all lambda functions with most recent code. Use only when all Lambda exist.
+make update 
+#updates Lambda function for specific module.
+make u."module_name" 
 ```
