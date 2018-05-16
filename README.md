@@ -13,6 +13,7 @@ npm install sharp
 ```
 
 ## Deploy
+Modify script parameters as needed.
 ```bash
 #creates deployment ready zip files from Lambda function code and dependencies
 make

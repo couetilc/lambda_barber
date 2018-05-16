@@ -1,5 +1,5 @@
-ROLE="arn:aws:iam::962610988997:role/s3_4lambda"
-ZIPPATH="fileb://~/dv/lambda_barber/"
+ROLE="arn:aws:iam::962610988997:role/s3_dynamo_4lambda"
+ZIPPATH="fileb://~/lambda_barber/"
 RUNTIME="nodejs8.10"
 
 .PHONY: zip 
@@ -26,6 +26,12 @@ u.%: %.zip
 	zip -rq "$*"".zip" "$*"".js" node_modules && aws lambda update-function-code \
 		--function-name "$*" \
 		--zip-file $(ZIPPATH)"$*"".zip"
+
+.PHONY: delete
+delete: d.makePreview d.makeOriginal d.makeBackground d.makeThumbnail
+d.%: %.zip
+	aws lambda delete-function \
+		--function-name "$*"
 
 .PHONY: clean
 clean:
