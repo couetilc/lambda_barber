@@ -1,4 +1,6 @@
 ROLE="arn:aws:iam::962610988997:role/s3_dynamo_4lambda"
+USER="962610988997"
+SRCBUCKET="arn:aws:s3:::portfolio-originals"
 ZIPPATH="fileb://~/lambda_barber/"
 RUNTIME="nodejs8.10"
 TIMEOUT=15
@@ -19,7 +21,18 @@ c.%: %.zip
 		--handler "$*".handler \
 		--zip-file $(ZIPPATH)"$*"".zip" \
 		--timeout $(TIMEOUT) \
-		--memory-size $(MEMORYSIZE) 
+		--memory-size $(MEMORYSIZE) \
+	&& aws lambda add-permission \
+		--function-name "$*" \
+		--region "us-east-1" \
+		--statement-id "12345" \
+		--action "lambda:InvokeFunction" \
+		--principal s3.amazonaws.com \
+		--source-arn $(SRCBUCKET) \
+		--source-account $(USER) \
+	&& aws s3api put-bucket-notification-configuration \
+		--bucket $(SRCBUCKET)
+		--notification-configuration 
 
 .PHONY: update
 update: u.makePreview u.makeOriginal u.makeBackground u.makeThumbnail u.deleteImage

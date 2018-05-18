@@ -31,16 +31,13 @@ exports.handler = async (event, context) => {
 
 	const delete_entry_param = { 
 		Key: { 'key': { S: source_filename } },
-		TableName: 'test_artwork'
+		TableName: 'artwork'
 	};
 
 	return await s3.deleteObjects(delete_images_param).promise()
 		.then(result => { 
 			console.log(result);
 			return db.deleteItem(delete_entry_param).promise();
-		}).then(result => {
-			console.log(result);
-			return result;
 		}).catch(error => {
 			console.log(error);
 			return error;

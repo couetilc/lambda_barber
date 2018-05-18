@@ -61,8 +61,9 @@ exports.handler = async (event, context) => {
 					"date_added": { S: date_added },
 					"s3url": { S: s3url }
 				},
-				TableName: 'test_artwork'
+				TableName: 'artwork'
 			};
 			return db.putItem(metadata_query).promise();
-		});
+		})
+		.catch(error => console.log(error));
 };
