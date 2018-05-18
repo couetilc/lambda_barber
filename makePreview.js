@@ -7,25 +7,26 @@ exports.handler = async (event, context) => {
 	console.log(JSON.stringify(event));
 	console.log(JSON.stringify(context));
 
-	const source_filename = decodeURI(event.Records[0].s3.object.key);
-	const source_bucket = decodeURI(event.Records[0].s3.bucket.name);
-	const key = decodeURI(event.Records[0].s3.object.key);
-	const date_added = decodeURI(event.Records[0].eventTime);
+	const key = decodeURIComponent(event.Records[0].s3.object.key);
+	const source_bucket = decodeURIComponent(event.Records[0].s3.bucket.name);
+	const event_time = decodeURIComponent(event.Records[0].eventTime);
+	const date_added = event_time.substring(0, event_time.lastIndexOf('.')); //keep seconds
+	const source_filename = key.replace(/\+/g, ' ');
 
-	//Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)"
-	const parse = /(\d*)\s*(.*)\((.*),(.*?)\)*\s*$/g;
-	const [rank, title, category, year_created] = parse.exec(source_filename);
+	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */
+	const parseMetadata = /([0-9]*)[ \t]*(.*)[\(](.*),(.*?)[\)]*\.(?=[^.]*$)/g;
+	const fields = parseMetadata.exec(source_filename);
+	const rank = !fields[1] || fields[1] === '' ? '0' : fields[1];
+	const title = fields[2].trim();
+	const category = fields[3].trim();
+	const year_created = fields[4].trim();
 
-	const month_created = '4';
 	const form = 'preview';
 	const artist = 'Olga Gorman';
-	const destination_filename = [title, 'by', artist, date_added].join(' ');
+	const destination_filename = [title, 'by', artist, year_created].join(' ');
 	const path = [form, category, destination_filename].join('/');
 	const destination_bucket = 'optimized-portfolio';
-	const s3_endpoint = 'http://optimized-portfolio.s3-website-us-east-1.amazonaws.com/';
-	if (!rank || rank === '') {
-		rank = '0';
-	}
+	const s3url = encodeURI('https://s3.amazonaws.com/' + destination_bucket + '/' + path);
 
 	const getPreview = image => sharp(image)
 		.jpeg({
@@ -38,29 +39,30 @@ exports.handler = async (event, context) => {
 		.min()
 		.toFormat('jpeg')
 		.toBuffer();
-	
-	const metadata_query = {
-		Item: {
-			"key": { S: source_filename },
-			"rank": { S: rank },
-			"title": { S: title.trim() },
-			"artist": { S: artist },
-			"category": { S: category.trim().toLowerCase() },
-			"form": { S: form },
-			"month_created": { S: month_created },
-			"year_created": { S: year_created.trim() },
-			"date_added": { S: date_added },
-			"s3url": { S: s3_endpoint + path }
-		},
-		TableName: 'test_artwork'
-	};
 
-	return await s3.getObject({Bucket: source_bucket, Key: key}).promise()
+	return await s3.getObject({Bucket: source_bucket, Key: source_filename}).promise()
 		.then(object => getPreview(object.Body))
 		.then(buffer => s3.putObject({
 			Body: buffer,
 			Bucket: destination_bucket,
-			Key: path 
+			Key: path,
+			ACL: 'public-read'
 		}).promise())
-		.then(() => db.putItem(metadata_query).promise());
+		.then(() => {
+			const metadata_query = {
+				Item: {
+					"key": { S: source_filename },
+					"rank": { S: rank },
+					"title": { S: title },
+					"artist": { S: artist },
+					"category": { S: category.toLowerCase() },
+					"form": { S: form },
+					"year_created": { S: year_created },
+					"date_added": { S: date_added },
+					"s3url": { S: s3url }
+				},
+				TableName: 'test_artwork'
+			};
+			return db.putItem(metadata_query).promise();
+		});
 };
