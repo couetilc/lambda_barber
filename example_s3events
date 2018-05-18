@@ -1,0 +1,93 @@
+Quick Test
+{
+  "Records": [
+    {
+      "s3": {
+        "bucket": {
+          "name": "portfolio-originals"
+        },
+        "object": {
+          "key": "winter-sunset_ivan-fedorovich-choultse.jpg"
+        }
+      }
+    }
+  ]
+}
+
+Example S3 Put Object Event
+{
+    "Records": [
+        {
+            "eventVersion": "2.0",
+            "eventSource": "aws:s3",
+            "awsRegion": "us-east-1",
+            "eventTime": "2018-05-16T19:03:24.362Z",
+            "eventName": "ObjectCreated:Put",
+            "userIdentity": {
+                "principalId": "ADW4M58VUJLQV"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "107.77.225.73"
+            },
+            "responseElements": {
+                "x-amz-request-id": "A21CA52B0094F5D8",
+                "x-amz-id-2": "gjoQpYWFFUD/3H2N08wxDN4s+nBI55h1ejEyZNuWMlxCswYBpzZm4c+wmMsm1zftdiHYkQoCFfc="
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "4cdcaa47-5a9f-4b78-b071-e3f624cc52f1",
+                "bucket": {
+                    "name": "portfolio-originals",
+                    "ownerIdentity": {
+                        "principalId": "ADW4M58VUJLQV"
+                    },
+                    "arn": "arn:aws:s3:::portfolio-originals"
+                },
+                "object": {
+                    "key": "grainstack-%28sunset%29_Monet.jpg",
+                    "size": 609685,
+                    "eTag": "81077a596460b29323906db84084104e",
+                    "sequencer": "005AFC8077E6618371"
+                }
+            }
+        }
+    ]
+}
+
+Example S3 Delete Object Event
+{
+    "Records": [
+        {
+            "eventVersion": "2.0",
+            "eventSource": "aws:s3",
+            "awsRegion": "us-east-1",
+            "eventTime": "2018-05-18T15:27:34.458Z",
+            "eventName": "ObjectRemoved:Delete",
+            "userIdentity": {
+                "principalId": "ADW4M58VUJLQV"
+            },
+            "requestParameters": {
+                "sourceIPAddress": "67.250.47.29"
+            },
+            "responseElements": {
+                "x-amz-request-id": "DD722A493C32176B",
+                "x-amz-id-2": "e1GIALjabwkRfe0NLATZH5dvvcmXS6q0r/l5sYqz6nZ5FvWAptYNKyp+nUV1hunWncAv2bVmOTA="
+            },
+            "s3": {
+                "s3SchemaVersion": "1.0",
+                "configurationId": "7bdab735-c4d9-440a-9b72-e5632f1f745f",
+                "bucket": {
+                    "name": "portfolio-originals",
+                    "ownerIdentity": {
+                        "principalId": "ADW4M58VUJLQV"
+                    },
+                    "arn": "arn:aws:s3:::portfolio-originals"
+                },
+                "object": {
+                    "key": "1+grainstack-%28sunset%29+%28oil+painting%2C+1891%29.jpg",
+                    "sequencer": "005AFEF0E6711E6043"
+                }
+            }
+        }
+    ]
+}
