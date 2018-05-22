@@ -2,7 +2,7 @@ const sharp = require('sharp');
 
 exports.shaves = [
 	{
-		"format": "preview",
+		"style": "preview",
 		"cut": image => sharp(image)
 			.jpeg({
 				quality: 85,
@@ -16,7 +16,7 @@ exports.shaves = [
 			.toBuffer()
 	},
 	{
-		"format": "original",
+		"style": "original",
 		"cut": image => sharp(image)
 			.jpeg({
 				quality: 100,
@@ -28,7 +28,7 @@ exports.shaves = [
 			.toBuffer()
 	},
 	{
-		"format": "thumbnail",
+		"style": "thumbnail",
 		"cut": image => sharp(image)
 			.jpeg({
 				quality: 85,
@@ -42,7 +42,7 @@ exports.shaves = [
 			.toBuffer()
 	},
 	{
-		"format": "background",
+		"style": "background",
 		"cut": image => sharp(image)
 			.jpeg({
 				quality: 95,

@@ -18,17 +18,17 @@ exports.handler = event => {
 	const fields = parseMetadata.exec(source_filename);
 	const rank = !fields[1] || fields[1] === '' ? '0' : fields[1];
 	const title = fields[2].trim();
-	const category = fields[3].trim();
+	const category = fields[3].trim().toLowerCase();
 	const year_created = fields[4].trim();
 	const artist = 'Olga Gorman';
 	const destination_bucket = 'optimized-portfolio';
-
 
 	let promises = [];
 	
 	razor.shaves.forEach(shave => {
 		const filename = [title, 'by', artist, year_created].join(' ') + '.jpg';
-		const path = [shave.format, category, filename].join('/');
+		const path = [shave.style, category, filename].join('/');
+		const primary_key = source_filename + ' ' + shave.style;
 		const s3url = encodeURI('https://s3.amazonaws.com/' + destination_bucket + '/' + path);
 
 		let receive_image = s3.getObject({
@@ -45,15 +45,14 @@ exports.handler = event => {
 				ACL: 'public-read'
 			}).promise())
 			.then(() => {
-				const primary_key = shave.format + ' ' + source_filename;
 				const metadata_query = {
 					Item: {
 						"key": { S: primary_key },
 						"rank": { S: rank },
 						"title": { S: title },
 						"artist": { S: artist },
-						"category": { S: category.toLowerCase() },
-						"form": { S: shave.format },
+						"category": { S: category },
+						"form": { S: shave.style },
 						"year_created": { S: year_created },
 						"date_added": { S: date_added },
 						"s3url": { S: s3url }
