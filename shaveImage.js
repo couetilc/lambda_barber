@@ -4,9 +4,8 @@ const db = new aws.DynamoDB();
 const sharp = require('sharp');
 const razor = require('./razorSharp.js');
 
-exports.handler = async (event, context) => {
+exports.handler = event => {
 	console.log(JSON.stringify(event));
-	console.log(JSON.stringify(context));
 
 	const key = decodeURIComponent(event.Records[0].s3.object.key);
 	const source_bucket = decodeURIComponent(event.Records[0].s3.bucket.name);
@@ -28,12 +27,17 @@ exports.handler = async (event, context) => {
 	let promises = [];
 	
 	razor.shaves.forEach(shave => {
-		const destination_filename = [title, 'by', artist, year_created].join(' ');
-		const path = [shave.format, category, destination_filename].join('/');
+		const filename = [title, 'by', artist, year_created].join(' ') + '.jpg';
+		const path = [shave.format, category, filename].join('/');
 		const s3url = encodeURI('https://s3.amazonaws.com/' + destination_bucket + '/' + path);
 
-		s3.getObject({Bucket: source_bucket, Key: source_filename}).promise()
-			.then(response => shave.cut(response.Body))
+		let receive_image = s3.getObject({
+			Bucket: source_bucket, 
+			Key: source_filename
+		}).promise();
+		promises.push(receive_image);
+
+		receive_image.then(response => shave.cut(response.Body))
 			.then(image => s3.putObject({
 				Body: image,
 				Bucket: destination_bucket,
@@ -41,25 +45,23 @@ exports.handler = async (event, context) => {
 				ACL: 'public-read'
 			}).promise())
 			.then(() => {
+				const primary_key = shave.format + ' ' + source_filename;
 				const metadata_query = {
 					Item: {
-						"key": { S: source_filename },
+						"key": { S: primary_key },
 						"rank": { S: rank },
 						"title": { S: title },
 						"artist": { S: artist },
 						"category": { S: category.toLowerCase() },
-						"form": { S: form },
+						"form": { S: shave.format },
 						"year_created": { S: year_created },
 						"date_added": { S: date_added },
 						"s3url": { S: s3url }
 					},
 					TableName: "artwork"
 				};
-				return db.putItem(metadata_query.promise());
+				return db.putItem(metadata_query).promise();
 			})
-			.then(promise => promises.append(promise))
 			.catch(error => console.log(error));
 	});
-
-	return await Promise.all(promises);
 };

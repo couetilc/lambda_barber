@@ -3,8 +3,8 @@ USER="962610988997"
 SRCBUCKET="arn:aws:s3:::portfolio-originals"
 ZIPPATH="fileb://~/lambda_barber/"
 RUNTIME="nodejs8.10"
-TIMEOUT=15
-MEMORYSIZE=192
+TIMEOUT=30
+MEMORYSIZE=128
 
 .PHONY: zip 
 zip: shaveImage.zip razorSharp.js
