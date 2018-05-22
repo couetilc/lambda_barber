@@ -7,12 +7,12 @@ TIMEOUT=15
 MEMORYSIZE=192
 
 .PHONY: zip 
-zip: makePreview.zip makeOriginal.zip makeBackground.zip makeThumbnail.zip deleteImage.zip
+zip: shaveImage.zip razorSharp.js
 %.zip: %.js
-	zip -rq "$*"".zip" "$*"".js" node_modules 
+	zip -rq "$*"".zip" "$*"".js" razorSharp.js node_modules 
 
 .PHONY: create
-create: c.makePreview c.makeOriginal c.makeBackground c.makeThumbnail c.deleteImage
+create: c.shaveImage
 c.%: %.zip
 	aws lambda create-function \
 		--function-name "$*" \
@@ -22,27 +22,16 @@ c.%: %.zip
 		--zip-file $(ZIPPATH)"$*"".zip" \
 		--timeout $(TIMEOUT) \
 		--memory-size $(MEMORYSIZE) \
-	&& aws lambda add-permission \
-		--function-name "$*" \
-		--region "us-east-1" \
-		--statement-id "12345" \
-		--action "lambda:InvokeFunction" \
-		--principal s3.amazonaws.com \
-		--source-arn $(SRCBUCKET) \
-		--source-account $(USER) \
-	&& aws s3api put-bucket-notification-configuration \
-		--bucket $(SRCBUCKET)
-		--notification-configuration 
 
 .PHONY: update
-update: u.makePreview u.makeOriginal u.makeBackground u.makeThumbnail u.deleteImage
+update: u.shaveImage
 u.%: %.zip
 	aws lambda update-function-code \
 		--function-name "$*" \
 		--zip-file $(ZIPPATH)"$*"".zip"
 
 .PHONY: delete
-delete: d.makePreview d.makeOriginal d.makeBackground d.makeThumbnail d.deleteImage
+delete: d.shaveImage
 d.%: %.zip
 	aws lambda delete-function \
 		--function-name "$*"

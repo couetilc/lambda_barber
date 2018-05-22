@@ -25,7 +25,7 @@ exports.shaves = [
 				force: true
 			})
 			.toFormat('jpeg')
-			.toBuffer();
+			.toBuffer()
 	},
 	{
 		"format": "thumbnail",
@@ -39,7 +39,7 @@ exports.shaves = [
 			.resize(200, 160)
 			.crop('center')
 			.toFormat('jpeg')
-			.toBuffer();
+			.toBuffer()
 	},
 	{
 		"format": "background",
@@ -54,6 +54,6 @@ exports.shaves = [
 			.withoutEnlargement()
 			.min()
 			.toFormat('jpeg')
-			.toBuffer();
+			.toBuffer()
 	}
 ];
