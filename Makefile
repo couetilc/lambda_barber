@@ -12,7 +12,7 @@ zip: shaveImage.zip razorSharp.js
 	zip -rq "$*"".zip" "$*"".js" razorSharp.js node_modules 
 
 .PHONY: create
-create: c.shaveImage
+create: c.shaveImage razorSharp.js
 c.%: %.zip
 	aws lambda create-function \
 		--function-name "$*" \
@@ -24,14 +24,14 @@ c.%: %.zip
 		--memory-size $(MEMORYSIZE) \
 
 .PHONY: update
-update: u.shaveImage
+update: u.shaveImage razorSharp.js
 u.%: %.zip
 	aws lambda update-function-code \
 		--function-name "$*" \
 		--zip-file $(ZIPPATH)"$*"".zip"
 
 .PHONY: delete
-delete: d.shaveImage
+delete: d.shaveImage razorSharp.js
 d.%: %.zip
 	aws lambda delete-function \
 		--function-name "$*"
