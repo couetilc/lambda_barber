@@ -34,7 +34,7 @@ exports.handler = event => {
 
 		let receive_image = s3.getObject({
 			Bucket: source_bucket, 
-			Key: source_filename
+			Key: "portfolio/" + source_filename
 		}).promise();
 		promises.push(receive_image);
 
