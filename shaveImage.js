@@ -7,6 +7,9 @@ const razor = require('./razorSharp.js');
 exports.handler = event => {
 	console.log(JSON.stringify(event));
 
+    /* A put event for an object of size 0 indicates a folder has been made */
+    if (event.Records[0].s3.object.size === 0) return;
+
 	const key = decodeURIComponent(event.Records[0].s3.object.key);
 	const source_bucket = decodeURIComponent(event.Records[0].s3.bucket.name);
 	const event_time = decodeURIComponent(event.Records[0].eventTime);
