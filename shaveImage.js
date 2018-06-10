@@ -4,7 +4,18 @@ const db = new aws.DynamoDB({apiVersion: '2012-08-10'});
 const sharp = require('sharp');
 const razor = require('./razorSharp.js');
 
-exports.handler = event => {
+async function shaveImage(param) {
+	return s3.getObject(param.s3get).promise()
+	.then(response => param.cut(response.Body))
+	.then(image => {
+		param.s3put.Body = image;
+		return s3.putObject(param.s3put).promise();
+	})
+	.then(() => db.putItem(param.dbput).promise())
+	.catch(err => console.error(err));
+}
+
+exports.handler = async event => {
 	console.log(JSON.stringify(event));
 
 	const source_filename = event.key.replace(/\+/g, ' ');
@@ -22,46 +33,41 @@ exports.handler = event => {
 	const artist = 'Olga Gorman';
 	const destination_bucket = 'optimized-portfolio';
 
-	let promises = [];
-	
-	razor.shaves.forEach(shave => {
+	let job_parameters = razor.shaves.map(shave => {
 		const filename = [title, 'by', artist, year_created]
 			.join(' ') + '.jpg';
 		const path = ["media", shave.style, category, filename]
 			.join('/');
 		const primary_key = source_filename + ' ' + shave.style;
-		const s3url = encodeURI('https://s3.amazonaws.com/' + destination_bucket + '/' + path);
-
-		let receive_image = s3.getObject({
-			Bucket: source_bucket, 
-			Key: "portfolio/" + source_filename
-		}).promise();
-		promises.push(receive_image);
-
-		receive_image.then(response => shave.cut(response.Body))
-			.then(image => s3.putObject({
-				Body: image,
+		const s3url = encodeURI('https://s3.amazonaws.com/' 
+					+ destination_bucket + '/' + path);
+		return { 
+			s3get: {
+				Bucket: source_bucket,
+				Key: "portfolio/" + source_filename
+			},
+			s3put: {
 				Bucket: destination_bucket,
 				Key: path,
 				ACL: 'public-read'
-			}).promise())
-			.then(() => {
-				const metadata_query = {
-					Item: {
-						"key": { S: primary_key },
-						"rank": { S: rank },
-						"title": { S: title },
-						"artist": { S: artist },
-						"category": { S: category },
-						"form": { S: shave.style },
-						"year_created": { S: year_created },
-						"date_added": { S: date_added },
-						"s3url": { S: s3url }
-					},
-					TableName: "artwork"
-				};
-				return db.putItem(metadata_query).promise();
-			})
-			.catch(error => console.log(error));
+			},
+			cut: { shave.cut },
+			dbput: {
+				Item: {
+					"key": { S: primary_key },
+					"rank": { S: rank },
+					"title": { S: title },
+					"artist": { S: artist },
+					"category": { S: category },
+					"form": { S: form },
+					"year_created": { S: year_created },
+					"date_added": { S: date_added },
+					"s3url": { S: s3url },
+				},
+				TableName: "artwork"
+			}
+		}
 	});
+
+	return await Promise.all(job_parameters.map(job => shaveImage(job)));
 };
