@@ -7,12 +7,12 @@ TIMEOUT=60
 MEMORYSIZE=256
 
 .PHONY: zip 
-zip: shaveImage.zip trimDatabase.zip razorSharp.js
+zip: shaveImage.zip trimDatabase.zip handlePortfolioPut.zip handlePortfolioDelete.zip razorSharp.js
 %.zip: %.js
 	zip -rq "$*"".zip" "$*"".js" razorSharp.js node_modules 
 
 .PHONY: create
-create: c.shaveImage c.trimDatabase razorSharp.js
+create: c.shaveImage c.trimDatabase c.handlePortfolioPut c.handlePortfolioDelete razorSharp.js
 c.%: %.zip
 	aws lambda create-function \
 		--function-name "$*" \
@@ -21,17 +21,17 @@ c.%: %.zip
 		--handler "$*".handler \
 		--zip-file $(ZIPPATH)"$*"".zip" \
 		--timeout $(TIMEOUT) \
-		--memory-size $(MEMORYSIZE) \
+		--memory-size $(MEMORYSIZE)
 
 .PHONY: update
-update: u.shaveImage u.trimDatabase razorSharp.js
+update: u.shaveImage u.trimDatabase u.handlePortfolioPut u.handlePortfolioDelete razorSharp.js
 u.%: %.zip
 	aws lambda update-function-code \
 		--function-name "$*" \
 		--zip-file $(ZIPPATH)"$*"".zip"
 
 .PHONY: delete
-delete: d.shaveImage d.trimDatabase razorSharp.js
+delete: d.shaveImage d.trimDatabase d.handlePortfolioPut d.handlePortfolioDelete razorSharp.js
 d.%: %.zip
 	aws lambda delete-function \
 		--function-name "$*"

@@ -10,17 +10,13 @@ exports.handler = async event => {
 	if (record.s3.object.size === 0) return;
 
 	const key = decodeURIComponent(record.s3.object.key);
-	const source_bucket = decodeURIComponent(record.s3.bucket.name);
-	const event_time = decodeURIComponent(record.eventTime);
 
 	if (key.indexOf("portfolio/") === 0) {
 		return lambda.invoke({
-			FunctionName: "shaveImage",
+			FunctionName: "trimDatabase",
 			InvocationType: "Event",
 			Payload: JSON.stringify({
-				"key": key.replace("portfolio/", ""),
-				"source_bucket": source_bucket,
-				"time": event_time
+				"key": key.replace("portfolio/", "")
 			})
 		}).promise();
 	}

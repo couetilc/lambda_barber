@@ -33,7 +33,7 @@ exports.handler = async event => {
 	const artist = 'Olga Gorman';
 	const destination_bucket = 'optimized-portfolio';
 
-	let job_parameters = razor.shaves.map(shave => {
+	const job_parameters = razor.shaves.map(shave => {
 		const filename = [title, 'by', artist, year_created]
 			.join(' ') + '.jpg';
 		const path = ["media", shave.style, category, filename]
@@ -51,7 +51,7 @@ exports.handler = async event => {
 				Key: path,
 				ACL: 'public-read'
 			},
-			cut: { shave.cut },
+			cut: shave.cut,
 			dbput: {
 				Item: {
 					"key": { S: primary_key },
@@ -59,7 +59,7 @@ exports.handler = async event => {
 					"title": { S: title },
 					"artist": { S: artist },
 					"category": { S: category },
-					"form": { S: form },
+					"form": { S: shave.style },
 					"year_created": { S: year_created },
 					"date_added": { S: date_added },
 					"s3url": { S: s3url },
