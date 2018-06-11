@@ -4,18 +4,15 @@ const db = new aws.DynamoDB({apiVersion: '2012-08-10'});
 const njk = require('nunjucks');
 
 exports.handler = async event => {
-	//console.log(JSON.stringify(event));
+	console.log(JSON.stringify(event));
 
 	return s3.getObject({
 		Bucket: "portfolio-originals",
 		Key: "templates/" + "skeleton.njk"
 	}).promise()
-	.then(response => {
-		const buf = response.Body.data;
-		//console.log(JSON.stringify(response));
-		return console.log(Buffer.from(buf)
-			.toString());
-	})
+	.then(response => console.log(
+		njk.renderString(Buffer.from(response.Body).toString())
+	))
 	.catch(err => console.error(err));
 
 	/* Pull all database information */
