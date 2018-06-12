@@ -23,5 +23,9 @@ exports.handler = async event => {
 				"time": event_time
 			})
 		}).promise();
-	}
+	} else if (key.indexOf("templates") {
+		
+	} else if (key === "settings/main_page.yaml") {
+
+	} 
 };

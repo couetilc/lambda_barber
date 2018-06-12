@@ -11,6 +11,7 @@
     "fs-copy-file-sync": "^1.1.1",
     "fs-minipass": "^1.2.5",
     "gauge": "^2.7.4",
+    "js-yaml": "^3.12.0",
     "minipass": "^2.3.0",
     "minizlib": "^1.1.0",
     "nan": "^2.10.0",
