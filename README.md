@@ -7,8 +7,10 @@ Enables static asset optimization, HTML template rendering, and live-webpage upd
 ```
 
 ## Build
+```
 TODO: Scripts -> Github 
 TODO: Cloudformation
+```
 
 ## Deploy
 Currently, deployment is managed by Make
