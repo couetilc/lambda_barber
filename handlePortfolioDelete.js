@@ -1,5 +1,4 @@
 const aws = require('aws-sdk');
-const s3 = new aws.S3({apiVersion: '2006-03-01'});
 const lambda = new aws.Lambda({apiVersion: '2015-03-31'});
 
 exports.handler = async event => {

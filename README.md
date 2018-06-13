@@ -1,19 +1,15 @@
 # Lambda_Barber 
-### takes images from an S3 bucket, edits them, then uploads the edited photo to another S3 bucket
+### Group of AWS Lambda functions used to generate a easy-to-modify portfolio for artists.
+#### Enables static asset optimization, HTML template rendering, and live-webpage updates with no downtime.
+##### 	S3 		-> 	Lambda 			-> 	DynamoDB		->	Lambda			->	S3.
+##### 	"config/assets" -> 	"optimize assets" 	-> 	"track metadata"	-> 	"render web pages"	->	"serve content"
 
 ## Build
-```bash
-git clone https://github.com/couetilc/lambda_barber.git
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install 8.1.0
-nvm use 8.1.0
-npm init
-npm install sharp
-```
+TODO: Github -> Scripts
+TODO: Cloudformation
 
 ## Deploy
-Modify script parameters as needed.
+Currently, deployment is managed by Make
 ```bash
 #creates deployment ready zip files from Lambda function code and dependencies
 make
@@ -27,4 +23,12 @@ make c."module_name"
 make update 
 #updates Lambda function for specific module.
 make u."module_name" 
+
+#deletes all lambda functions. Use only when all Lambda exist.
+make delete
+#deletes Lambda function for specific module.
+make d."module_name"
+
+#deletes unnecessary deployment files.
+make clean
 ```

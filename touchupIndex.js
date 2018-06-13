@@ -5,6 +5,10 @@ const njk = require('nunjucks');
 
 exports.handler = async event => {
 	console.log(JSON.stringify(event));
+	/* grab nunjucks parameters from event 		*/
+	/* pull base template from private database 	*/
+	/* render home page using nunjucks 		*/
+	/* put home page into public s3 bucket 		*/
 
 	return s3.getObject({
 		Bucket: "portfolio-originals",
@@ -14,9 +18,4 @@ exports.handler = async event => {
 		njk.renderString(Buffer.from(response.Body).toString())
 	))
 	.catch(err => console.error(err));
-
-	/* Pull all database information */
-
-	/* Re-render all pages using nunjucks			*/
-	/*	-PUT rendered pages to optimized portfolio	*/
 };
