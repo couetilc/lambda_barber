@@ -1,7 +1,8 @@
 # Lambda_Barber 
 ### Group of AWS Lambda functions used to generate a easy-to-modify portfolio for artists.
-#### Enables static asset optimization, HTML template rendering, and live-webpage updates with no downtime.
+##### Enables static asset optimization, HTML template rendering, and live-webpage updates with no downtime.
 S3 		-> 	Lambda 			-> 	DynamoDB		->	Lambda			->	S3.
+
 "config/assets" -> 	"optimize assets" 	-> 	"track metadata"	-> 	"render web pages"	->	"serve content"
 
 ## Build
