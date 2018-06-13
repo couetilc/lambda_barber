@@ -36,3 +36,14 @@ make d."module_name"
 #deletes unnecessary deployment files.
 make clean
 ```
+
+## Roadmap
+
+1. Modify category parser to using folder structure instead of labeled artwork files?????????
+2. Add HTML page submitting POST requests to AWS API Gateway for artist/user to update settings such as ordering of artwork/categories, thumbnail art, category names.
+3. Modify handler scripts to use SNS to add events to SQS to be processed by existing Lambda functions. Goals:
+..* Ensure latest, most up to date pages are pushed to server last (not overwritten)
+..* Efficient execution/rendering of HTML and image assets. (do minimal work required)
+..* Methodology for handling missed events.
+..* Decouple Lambda functions (increased concurrency, purer microservices)
+..* Reduce costs
