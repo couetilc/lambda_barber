@@ -3,7 +3,7 @@
 Enables static asset optimization, HTML template rendering, and live-webpage updates with no downtime.
 ```
 	S3 	-> 	Lambda 		-> 	DynamoDB	-> 	Lambda		-> 	S3
-"config/assets" -> "optimize assets" 	-> "track metadata"	-> "render web pages"	-> "serve content"
+"config+assets" -> "optimize assets" 	-> "track metadata"	-> "render web pages"	-> "serve content"
 ```
 
 ## Build
