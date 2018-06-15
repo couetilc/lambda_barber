@@ -26,6 +26,12 @@ exports.handler = async event => {
 	} else if (key.indexOf("templates") {
 		
 	} else if (key === "settings/main_page.yaml") {
-
+		return lambda.invoke({
+			FunctionName: "updateCategoriesSettings",
+			InvocationType: "Event",
+			Payload: JSON.stringify({
+				"time": event_time
+			})
+		}).promise();
 	} 
 };

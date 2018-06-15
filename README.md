@@ -1,5 +1,5 @@
 # Lambda_Barber 
-### Group of AWS Lambda functions used to generate a easy-to-modify portfolio for artists.
+### Group of AWS Lambda functions used to generate an easy-to-modify portfolio for artists.
 Enables static asset optimization, HTML template rendering, and live-webpage updates with no downtime.
 ```
 	S3 	-> 	Lambda 		-> 	DynamoDB	-> 	Lambda		-> 	S3
@@ -42,8 +42,9 @@ make clean
 1. Modify category parser to using folder structure instead of labeled artwork files?????????
 2. Add HTML page submitting POST requests to AWS API Gateway for artist/user to update settings such as ordering of artwork/categories, thumbnail art, category names.
 3. Modify handler scripts to use SNS to add events to SQS to be processed by existing Lambda functions. Goals:
-..* Ensure latest, most up to date pages are pushed to server last (not overwritten)
-..* Efficient execution/rendering of HTML and image assets. (do minimal work required)
-..* Methodology for handling missed events.
-..* Decouple Lambda functions (increased concurrency, purer microservices)
-..* Reduce costs
+  * Ensure latest, most up to date pages are pushed to server last (not overwritten)
+  * Efficient execution/rendering of HTML and image assets. (do minimal work required)
+  * Methodology for handling missed events.
+  * Decouple Lambda functions (increased concurrency, purer microservices)
+  * Reduce costs??? (Lambda has to poll SQS, might not be worth it when very few events happen per year. Discuss with AWS employee at Loft)
+  * See: https://aws.amazon.com/blogs/aws/queues-and-notifications-now-best-friends/

@@ -2,11 +2,9 @@ const aws = require('aws-sdk');
 const s3 = new aws.S3({apiVersion: '2006-03-01'});
 const db = new aws.DynamoDB({apiVersion: '2012-08-10'});
 const yaml = require('js-yaml');
-
-exports.handler = async event => {
 	console.log(event);
 
-	return s3.getObject({
+exports.handler = async event => s3.getObject({
 		Bucket: "portfolio-originals",
 		Key: "settings/main_page.yaml"
 	}).promise()
@@ -28,4 +26,3 @@ exports.handler = async event => {
 	.then(dbputs => Promise.all(
 		dbputs.map(putparam => db.putItem(putparam).promise())))
 	.catch(err => console.error(err));
-};
