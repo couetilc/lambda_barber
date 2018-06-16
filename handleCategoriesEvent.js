@@ -7,4 +7,5 @@ exports.handler = async event => {
 	/* pull information from categories database 			*/
 	/* invoke lambda function (touchupIndex.js) to render home page *
 	 *	(pass in nunjucks parameters) 				*/
+	dbparam = {};
 };
