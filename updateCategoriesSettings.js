@@ -17,7 +17,8 @@ exports.handler = async event => s3.getObject({
 			Item: {
 				"category": { S: entry.category },
 				"thumbnail": { S: entry.thumbnail },
-				"position": { S: entry.position }
+				"order": { S: entry.order },
+				"updated_on": { S: event.time }
 			},
 			TableName: "categories"
 		})));
