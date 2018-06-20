@@ -23,7 +23,7 @@ exports.handler = async event => {
 				"time": event_time
 			})
 		}).promise();
-	} else if (key.indexOf("templates") {
+	} else if (key.indexOf("templates/") === 0) {
 		
 	} else if (key === "settings/main_page.yaml") {
 		return lambda.invoke({
