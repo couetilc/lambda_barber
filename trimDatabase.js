@@ -5,8 +5,10 @@ const razor = require('./razorSharp.js');
 
 async function trimDatabase(param) {
 	return db.deleteItem(param.dbdelete).promise()
-		.then(() => s3.deleteObject(param.s3delete).promise())
-		.catch(err => console.error(err));
+	.then(() => Promise.all(param.s3deletes
+		.map(s3delete => s3.deleteObject(s3delete).promise()))
+	)
+	.catch(err => console.log(err));
 }
 
 exports.handler = async event => {
@@ -24,18 +26,20 @@ exports.handler = async event => {
         const year_created = fields[4].trim();
         const artist = 'Olga Gorman';
 
-	const job_parameters = razor.shaves.map(shave => {
+	const primary_key = [category, title].join(':');
+
+	let params = {};
+	params.dbdelete = {
+		Key: { "key": { S: primary_key }},
+		TableName: target_table
+	};
+	params.s3deletes = razor.shaves.map(shave => {
 		const filename = [title, 'by', artist, year_created]
 			.join(' ') + '.jpg';
 		const path = ["media", shave.style, category, filename]
 			.join('/');
-		const primary_key = source_filename + ' ' + shave.style;
 
 		return {
-			dbdelete: {
-				Key: { "key": { S: primary_key } },
-				TableName: target_table
-			},
 			s3delete: {
 				Bucket: target_bucket,
 				Key: path
@@ -43,5 +47,5 @@ exports.handler = async event => {
 		};
 	});
 
-	return await Promise.all(job_parameters.map(job => trimDatabase(job)));
+	return await trimDatabase(params);
 };

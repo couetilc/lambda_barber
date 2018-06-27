@@ -10,7 +10,7 @@ exports.handler = async event => s3.getObject({
 	.then(response => new Buffer(
 		njk.renderString(
 			Buffer.from(response.Body).toString(), 
-			context
+			event.context
 	)))
 	.then(template => s3.putObject({
 		Bucket: "optimized-portfolio",

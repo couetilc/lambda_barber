@@ -11,7 +11,7 @@ async function shaveImage(param) {
 		param.s3put.Body = image;
 		return s3.putObject(param.s3put).promise();
 	})
-	.then(() => db.putItem(param.dbput).promise())
+	.then(() => db.updateItem(param.dbput).promise())
 	.catch(err => console.error(err));
 }
 
@@ -38,11 +38,11 @@ exports.handler = async event => {
 			.join(' ') + '.jpg';
 		const path = ["media", shave.style, category, filename]
 			.join('/');
-		const primary_key = [category, title, shave.style]
-			.join(' ');
+		const primary_key = [category, title]
+			.join(':');
 		const s3url = encodeURI('https://s3.amazonaws.com/' 
 					+ destination_bucket + '/' + path);
-		return { 
+		let params = { 
 			s3get: {
 				Bucket: source_bucket,
 				Key: "portfolio/" + source_filename
@@ -63,11 +63,12 @@ exports.handler = async event => {
 					"form": { S: shave.style },
 					"year_created": { S: year_created },
 					"date_added": { S: date_added },
-					"s3url": { S: s3url }
 				},
 				TableName: "artwork"
 			}
-		}
+		};
+		params.dbput["url_" + shave.style] = s3url;
+		return params;
 	});
 
 	return await Promise.all(job_parameters.map(job => shaveImage(job)));

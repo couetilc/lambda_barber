@@ -91,3 +91,58 @@ Example S3 Delete Object Event
         }
     ]
 }
+
+Sample "Artwork" DynamoDB Table Event
+
+{
+    "Records": [
+        {
+            "eventID": "8e4c44440907351f0e76a24bca77ad32",
+            "eventName": "INSERT",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-east-1",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1529526300,
+                "Keys": {
+                    "key": {
+                        "S": "12 Winter Sunset (russian, 1920s).jpg original"
+                    }
+                },
+                "NewImage": {
+                    "date_added": {
+                        "S": "2018-06-20T20:24:46"
+                    },
+                    "s3url": {
+                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/original/russian/Winter%20Sunset%20by%20Olga%20Gorman%201920s.jpg"
+                    },
+                    "form": {
+                        "S": "original"
+                    },
+                    "artist": {
+                        "S": "Olga Gorman"
+                    },
+                    "rank": {
+                        "S": "12"
+                    },
+                    "year_created": {
+                        "S": "1920s"
+                    },
+                    "category": {
+                        "S": "russian"
+                    },
+                    "title": {
+                        "S": "Winter Sunset"
+                    },
+                    "key": {
+                        "S": "12 Winter Sunset (russian, 1920s).jpg original"
+                    }
+                },
+                "SequenceNumber": "132783600000000008196087689",
+                "SizeBytes": 333,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:us-east-1:962610988997:table/artwork/stream/2018-05-23T23:00:34.695"
+        }
+    ]
+}
