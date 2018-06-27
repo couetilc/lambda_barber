@@ -38,7 +38,8 @@ exports.handler = async event => {
 			.join(' ') + '.jpg';
 		const path = ["media", shave.style, category, filename]
 			.join('/');
-		const primary_key = source_filename + ' ' + shave.style;
+		const primary_key = [category, title, shave.style]
+			.join(' ');
 		const s3url = encodeURI('https://s3.amazonaws.com/' 
 					+ destination_bucket + '/' + path);
 		return { 
@@ -62,7 +63,7 @@ exports.handler = async event => {
 					"form": { S: shave.style },
 					"year_created": { S: year_created },
 					"date_added": { S: date_added },
-					"s3url": { S: s3url },
+					"s3url": { S: s3url }
 				},
 				TableName: "artwork"
 			}

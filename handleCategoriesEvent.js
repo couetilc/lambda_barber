@@ -2,10 +2,21 @@ const aws = require('aws-sdk');
 const lambda = new aws.Lambda({apiVersion: '2015-03-31'});
 const db = new aws.DynamoDB({apiVersion: '2012-08-10'});
 
-exports.handler = async event => {
-	console.log(JSON.stringify(event));
-	/* pull information from categories database 			*/
-	/* invoke lambda function (touchupIndex.js) to render home page *
-	 *	(pass in nunjucks parameters) 				*/
-	dbparam = {};
-};
+exports.handler = async event => db.scan({
+                TableName: "categories",
+                Select: "ALL_ATTRIBUTES"
+        }).promise().then(data => data.Items.map(item => ({
+                "url": item.category_url.S,
+                "name": item.category.S,
+                "thumbnail": item.thumbnail.S,
+                "order": item.order.N
+        }))).then(list => ({
+                "categories": list.sort(
+                        (a, b) => parseInt(a.order, 10) - parseInt(b.order, 10)
+        )})).then(context => lambda
+		.invoke({
+			FunctionName: "touchupIndex",
+			InvocationType: "Event",
+			Payload: JSON.stringify(context)
+		}).promise())
+	.catch(err => console.error(err))
