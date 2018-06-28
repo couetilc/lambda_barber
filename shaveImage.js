@@ -42,7 +42,8 @@ exports.handler = async event => {
 			.join(':');
 		const s3url = encodeURI('https://s3.amazonaws.com/' 
 					+ destination_bucket + '/' + path);
-		let params = { 
+		const modified_attribute = "url_" + shave.style;
+		const params = { 
 			s3get: {
 				Bucket: source_bucket,
 				Key: "portfolio/" + source_filename
@@ -54,20 +55,40 @@ exports.handler = async event => {
 			},
 			cut: shave.cut,
 			dbput: {
-				Item: {
-					"key": { S: primary_key },
-					"rank": { S: rank },
-					"title": { S: title },
-					"artist": { S: artist },
-					"category": { S: category },
-					"form": { S: shave.style },
-					"year_created": { S: year_created },
-					"date_added": { S: date_added },
+				Key: { "key": { S: primary_key }},
+				ExpressionAttributeValues: {
+					":r": { S: rank },
+					":t": { S: title },
+					":a": { S: artist },
+					":c": { S: category },
+					":f": { S: shave.style },
+					":y": { S: year_created },
+					":d": { S: date_added },
+					":u": { S: s3url }
 				},
+				ExpressionAttributeNames: {
+					"#R": "rank",
+					"#T": "title",
+					"#A": "artist",
+					"#C": "category",
+					"#F": "form",
+					"#Y": "year_created",
+					"#D": "date_added",
+					"#U": modified_attribute
+				},
+				UpdateExpression: [
+					"SET #R = :r",
+					"#T = :t", 
+					"#A = :a", 
+					"#C = :c", 
+					"#F = :f", 
+					"#Y = :y", 
+					"#D = :d", 
+					"#U = :u", 
+				].join(", "),
 				TableName: "artwork"
 			}
 		};
-		params.dbput["url_" + shave.style] = s3url;
 		return params;
 	});
 
