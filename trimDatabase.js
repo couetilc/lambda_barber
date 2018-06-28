@@ -6,8 +6,7 @@ const razor = require('./razorSharp.js');
 async function trimDatabase(param) {
 	return db.deleteItem(param.dbdelete).promise()
 	.then(() => Promise.all(param.s3deletes
-		.map(s3delete => s3.deleteObject(s3delete).promise()))
-	)
+		.map(s3delete => s3.deleteObject(s3delete).promise())))
 	.catch(err => console.log(err));
 }
 
