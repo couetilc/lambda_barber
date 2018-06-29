@@ -7,14 +7,19 @@ exports.handler = async event => s3.getObject({
 		Bucket: "portfolio-originals",
 		Key: "settings/main_page.yaml"
 	}).promise().then(response => {
-		const settings = yaml.safeLoad(Buffer.from(response.Body).toString());
+		const settings = yaml.safeLoad(
+			Buffer.from(response.Body).toString()
+		);
 
-		return Promise.all(settings.map(entry => db.getItem({
-				Key: {
-					"key": { S: [entry.category, entry.thumbnail, "thumbnail"].join(' ') }
-				},
-				TableName: "artwork"
-			}).promise().then(data => ({ 
+		const dbgets = settings.map(entry => ({
+			Key: { "key": { 
+				S: [entry.category, entry.thumbnail].join(':') 
+			}},
+			TableName: "artwork"
+		}));
+
+		return Promise.all(dbgets.map(dbget => db.getItem(dbget).promise()
+			.then(data => ({ 
 				Item: {
 					"category": { S: entry.category },
 					"thumbnail": { S: data.Item.s3url.S },
@@ -26,5 +31,7 @@ exports.handler = async event => s3.getObject({
 			}))
 		));
 	})
-	.then(dbputs => Promise.all(dbputs.map(putparam => db.putItem(putparam).promise())))
+	.then(dbputs => Promise.all(
+		dbputs.map(putparam => db.putItem(putparam).promise())
+	))
 	.catch(err => console.error(err));

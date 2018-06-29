@@ -9,8 +9,9 @@ exports.handler = async event => {
 	 * 	-> pull information from artwork database
  	 *	-> create context object
   	 *	-> invoke lambda to render HTML page 			*/
-	const categories = new Set(
-		event.Records.map(rec => dynamoDB.NewImage.category.S));
+	const categories = [...new Set(
+		event.Records.map(rec => rec.dynamoDB.NewImage.category.S)
+	)];
 
 	categories.forEach(category => {
 		db.scan({

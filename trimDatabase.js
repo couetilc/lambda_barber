@@ -39,10 +39,8 @@ exports.handler = async event => {
 			.join('/');
 
 		return {
-			s3delete: {
-				Bucket: target_bucket,
-				Key: path
-			}
+			Bucket: target_bucket,
+			Key: path
 		};
 	});
 
