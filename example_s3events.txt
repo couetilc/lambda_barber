@@ -97,49 +97,129 @@ Sample "Artwork" DynamoDB Table Event
 {
     "Records": [
         {
-            "eventID": "8e4c44440907351f0e76a24bca77ad32",
+            "eventID": "e42b417581fd9e9bce4635275b2e669f",
             "eventName": "INSERT",
             "eventVersion": "1.1",
             "eventSource": "aws:dynamodb",
             "awsRegion": "us-east-1",
             "dynamodb": {
-                "ApproximateCreationDateTime": 1529526300,
+                "ApproximateCreationDateTime": 1530216480,
                 "Keys": {
                     "key": {
-                        "S": "12 Winter Sunset (russian, 1920s).jpg original"
+                        "S": "oil painting:Meules, Effet de Neige, Le Matin"
                     }
                 },
                 "NewImage": {
                     "date_added": {
-                        "S": "2018-06-20T20:24:46"
-                    },
-                    "s3url": {
-                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/original/russian/Winter%20Sunset%20by%20Olga%20Gorman%201920s.jpg"
+                        "S": "2018-06-28T19:36:34"
                     },
                     "form": {
-                        "S": "original"
+                        "S": "thumbnail"
+                    },
+                    "url_thumbnail": {
+                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/thumbnail/oil%20painting/Meules,%20Effet%20de%20Neige,%20Le%20Matin%20by%20Olga%20Gorman%201891.jpg"
                     },
                     "artist": {
                         "S": "Olga Gorman"
                     },
                     "rank": {
-                        "S": "12"
+                        "S": "2"
                     },
                     "year_created": {
-                        "S": "1920s"
+                        "S": "1891"
                     },
                     "category": {
-                        "S": "russian"
+                        "S": "oil painting"
                     },
                     "title": {
-                        "S": "Winter Sunset"
+                        "S": "Meules, Effet de Neige, Le Matin"
                     },
                     "key": {
-                        "S": "12 Winter Sunset (russian, 1920s).jpg original"
+                        "S": "oil painting:Meules, Effet de Neige, Le Matin"
                     }
                 },
-                "SequenceNumber": "132783600000000008196087689",
-                "SizeBytes": 333,
+                "SequenceNumber": "170538300000000018305000369",
+                "SizeBytes": 396,
+                "StreamViewType": "NEW_AND_OLD_IMAGES"
+            },
+            "eventSourceARN": "arn:aws:dynamodb:us-east-1:962610988997:table/artwork/stream/2018-05-23T23:00:34.695"
+        },
+        {
+            "eventID": "629fe6bcdef2ca721a7aa322d563fb6e",
+            "eventName": "MODIFY",
+            "eventVersion": "1.1",
+            "eventSource": "aws:dynamodb",
+            "awsRegion": "us-east-1",
+            "dynamodb": {
+                "ApproximateCreationDateTime": 1530216480,
+                "Keys": {
+                    "key": {
+                        "S": "oil painting:Meules, Effet de Neige, Le Matin"
+                    }
+                },
+                "NewImage": {
+                    "date_added": {
+                        "S": "2018-06-28T19:36:34"
+                    },
+                    "form": {
+                        "S": "preview"
+                    },
+                    "url_thumbnail": {
+                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/thumbnail/oil%20painting/Meules,%20Effet%20de%20Neige,%20Le%20Matin%20by%20Olga%20Gorman%201891.jpg"
+                    },
+                    "artist": {
+                        "S": "Olga Gorman"
+                    },
+                    "rank": {
+                        "S": "2"
+                    },
+                    "url_preview": {
+                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/preview/oil%20painting/Meules,%20Effet%20de%20Neige,%20Le%20Matin%20by%20Olga%20Gorman%201891.jpg"
+                    },
+                    "year_created": {
+                        "S": "1891"
+                    },
+                    "category": {
+                        "S": "oil painting"
+                    },
+                    "title": {
+                        "S": "Meules, Effet de Neige, Le Matin"
+                    },
+                    "key": {
+                        "S": "oil painting:Meules, Effet de Neige, Le Matin"
+                    }
+                },
+                "OldImage": {
+                    "date_added": {
+                        "S": "2018-06-28T19:36:34"
+                    },
+                    "form": {
+                        "S": "thumbnail"
+                    },
+                    "url_thumbnail": {
+                        "S": "https://s3.amazonaws.com/optimized-portfolio/media/thumbnail/oil%20painting/Meules,%20Effet%20de%20Neige,%20Le%20Matin%20by%20Olga%20Gorman%201891.jpg"
+                    },
+                    "artist": {
+                        "S": "Olga Gorman"
+                    },
+                    "rank": {
+                        "S": "2"
+                    },
+                    "year_created": {
+                        "S": "1891"
+                    },
+                    "category": {
+                        "S": "oil painting"
+                    },
+                    "title": {
+                        "S": "Meules, Effet de Neige, Le Matin"
+                    },
+                    "key": {
+                        "S": "oil painting:Meules, Effet de Neige, Le Matin"
+                    }
+                },
+                "SequenceNumber": "170538400000000018305000414",
+                "SizeBytes": 901,
                 "StreamViewType": "NEW_AND_OLD_IMAGES"
             },
             "eventSourceARN": "arn:aws:dynamodb:us-east-1:962610988997:table/artwork/stream/2018-05-23T23:00:34.695"
