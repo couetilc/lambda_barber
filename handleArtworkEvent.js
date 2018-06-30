@@ -9,12 +9,17 @@ exports.handler = async event => {
 	 * 	-> pull information from artwork database
  	 *	-> create context object
   	 *	-> invoke lambda to render HTML page 			*/
-	const categories = [...new Set(
-		event.Records.map(rec => rec.dynamoDB.NewImage.category.S)
-	)];
-
-	categories.forEach(category => {
-		db.scan({
+	const categories = [...new Set(event.Records.map(rec => {
+		if (rec.dynamodb.hasOwnProperty("NewImage")) {
+			return rec.dynamodb.NewImage.category.S;
+		} else {
+			return rec.dynamodb.OldImage.category.S;
+		}
+	}))];
+	console.log(JSON.stringify(categories));
+/*
+	await Promise.all(categories.map(category => new Promise(
+		(resolve, reject) => { db.scan({
 			TableName: "artwork",
 			IndexName: "category",
 			FilterExpression: "#C = :c",
@@ -22,7 +27,11 @@ exports.handler = async event => {
 			ExpressionAttributeNames: {
 				"C": "category"
 			},
-			ExpressionAttributeValues: { S: { category }}
-		}).promise().then(data => console.log(JSON.stringify(data)));
-	});
+			ExpressionAttributeValues: { ":c": { S: category }}
+		}).promise().then(data => resolve(
+			console.log(JSON.stringify(data))
+		))}
+	)));
+*/
+	return 0;
 };
