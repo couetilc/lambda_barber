@@ -16,9 +16,13 @@ exports.handler = async event => {
 	categories.forEach(category => {
 		db.scan({
 			TableName: "artwork",
+			IndexName: "category",
+			FilterExpression: "#C = :c",
+			ProjectionExpression: "rank, title, url_preview, url_original, year_created",
 			ExpressionAttributeNames: {
-				"
-			}
-		});
+				"C": "category"
+			},
+			ExpressionAttributeValues: { S: { category }}
+		}).promise().then(data => console.log(JSON.stringify(data)));
 	});
 };
