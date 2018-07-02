@@ -9,4 +9,32 @@ exports.handler = async event => {
 	/* pull category template from private s3 bucket		*/
 	/* render specified category page HTML using nunjucks		*/
 	/* put rendered HTML page into public s3 bucket			*/
+	const category_url = "category/" + encodeURIComponent(
+		 event.category + ".html"
+	);
+
+	if (event.artwork === undefined || event.artwork.length == 0) {
+		return s3.deleteObject({
+			Bucket: "optimized-portfolio",
+			Key: category_url
+		});
+	}
+
+	return s3.getObject({
+		Bucket: "portfolio-originals",
+		Key: "templates/" + "category.njk"
+	}).promise()
+	.then(response => new Buffer(
+		njk.renderString(
+			Buffer.from(response.Body).toString(),
+			event
+	)))
+	.then(template => s3.putObject({
+		Bucket: "optimized-portfolio",
+		Key: category_url,
+		ACL: "public-read",
+		ContentType: "text/html",
+		Body: template
+	}).promise())
+	.catch(err => console.error(err));
 };

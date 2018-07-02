@@ -26,7 +26,7 @@ exports.handler = async event => {
 	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */
 	const parseMetadata = /([0-9]*)[ \t]*(.*)[\(](.*),(.*?)[\)]*\.(?=[^.]*$)/g;
 	const fields = parseMetadata.exec(source_filename);
-	const rank = !fields[1] || fields[1] === '' ? '0' : fields[1];
+	const rank = !fields[1] || fields[1] === '' ? '999999999999' : fields[1];
 	const title = fields[2].trim();
 	const category = fields[3].trim().toLowerCase();
 	const year_created = fields[4].trim();

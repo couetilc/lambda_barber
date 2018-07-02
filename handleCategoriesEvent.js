@@ -17,6 +17,6 @@ exports.handler = async event => db.scan({
 		.invoke({
 			FunctionName: "touchupIndex",
 			InvocationType: "Event",
-			Payload: JSON.stringify({ "context": context })
+			Payload: JSON.stringify({context: context})
 		}).promise())
 	.catch(err => console.error(err))

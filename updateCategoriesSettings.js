@@ -25,7 +25,11 @@ exports.handler = async event => s3.getObject({
 					"thumbnail": { S: data.Item.s3url.S },
 					"order": { N: entry.order.toString() },
 					"updated_on": { S: event.time },
-					"category_url": { S: "category/" + entry.category }
+					"category_url": { S: "category/" + 
+						encodeURIComponent(
+							entry.category + ".html"
+						)
+					}
 				},
 				TableName: "categories" 
 			}))

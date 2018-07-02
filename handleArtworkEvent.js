@@ -36,28 +36,18 @@ exports.handler = async event => {
 		}
 	}))];
 
-	try {
-		return await Promise.all(
-			categories.map(category => getCategoryArtwork(category))
-		);
-	} catch (error) {
-		console.log(error);
-	}
-/*
-	await Promise.all(categories.map(category => new Promise(
-		(resolve, reject) => { db.scan({
-			TableName: "artwork",
-			IndexName: "category",
-			FilterExpression: "#C = :c",
-			ProjectionExpression: "rank, title, url_preview, url_original, year_created",
-			ExpressionAttributeNames: {
-				"C": "category"
-			},
-			ExpressionAttributeValues: { ":c": { S: category }}
-		}).promise().then(data => resolve(
-			console.log(JSON.stringify(data))
-		))}
-	)));
-*/
-	return 0;
+	return Promise.all(categories.map(category => getCategoryArtwork(category)
+		.then(categorized_artwork => categorized_artwork.sort(
+			(a, b) => parseInt(a.rank, 10) - parseInt(b.rank, 10)
+		))
+		.then(sorted_artwork => lambda.invoke({
+			FunctionName: "touchupCategory",
+			InvocationType: "Event",
+			Payload: JSON.stringify({
+				category: category,
+				artwork: sorted_artwork
+			})
+		}).promise())
+		.catch(err => console.error(err))
+	))
 };
