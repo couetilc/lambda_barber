@@ -9,9 +9,9 @@ exports.handler = async event => {
 	/* pull category template from private s3 bucket		*/
 	/* render specified category page HTML using nunjucks		*/
 	/* put rendered HTML page into public s3 bucket			*/
-	const category_url = "category/" + encodeURIComponent(
-		 event.category + ".html"
-	);
+	const category_url = ["category/", event.category, ".html"]
+		.join("")
+		.replace(" ", "+");
 
 	if (event.artwork === undefined || event.artwork.length == 0) {
 		return s3.deleteObject({

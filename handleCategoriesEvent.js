@@ -9,6 +9,7 @@ exports.handler = async event => db.scan({
                 "url": item.category_url.S,
                 "name": item.category.S,
                 "thumbnail": item.thumbnail.S,
+		"background": item.background.S,
                 "order": item.order.N
         }))).then(list => ({
                 "categories": list.sort(
