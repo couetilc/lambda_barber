@@ -16,11 +16,9 @@ async function getCategoryArtwork(category) {
 		},
 		ExpressionAttributeValues: {":c": {S: category}},
 		FilterExpression: "#C = :c"
-	}).promise().then(data => resolve(
-		console.log(JSON.stringify(data))
-	)).catch(err => reject(
-		console.log(err)
-	)));
+	}).promise()
+	.then(data => resolve(data.Items))
+	.catch(err => reject(err)));
 }
 
 exports.handler = async event => {
