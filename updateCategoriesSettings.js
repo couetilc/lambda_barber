@@ -11,27 +11,33 @@ exports.handler = async event => s3.getObject({
 			Buffer.from(response.Body).toString()
 		);
 
-		const dbgets = settings.map(entry => ({
-			Key: { "key": { 
-				S: [entry.category, entry.thumbnail].join(':') 
-			}},
-			TableName: "artwork"
-		}));
-
-		return Promise.all(dbgets.map(dbget => db.getItem(dbget).promise()
-			.then(data => ({ 
-				Item: {
-					"category": { S: entry.category },
-					"thumbnail": { S: data.Item.s3url.S },
-					"order": { N: entry.order.toString() },
-					"updated_on": { S: event.time },
-					"category_url": { S: "category/" + entry.category }
-				},
-				TableName: "categories" 
+		return Promise.all(
+			settings.map(entry => new Promise((resolve, reject) => {
+				const getparam = {
+					Key: { "key": { 
+						S: [entry.category, entry.thumbnail].join(":")
+					}},
+					TableName: "artwork"
+				};
+				return db.getItem(getparam).promise()
+				.then(data => ({
+					Item: {
+						"category": { S: entry.category },
+						"thumbnail": { S: data.Item.url_thumbnail.S },
+						"background": { S: data.Item.url_background.S },
+						"order": { N: entry.order.toString() },
+						"updated_on": { S: event.time },
+						"category_url": { 
+							S: ["category/", entry.category, ".html"]
+								.join("")
+								.replace(" ", "+")
+						}
+					},
+					TableName: "categories"
+				}))
+				.then(putparam => resolve(db.putItem(putparam).promise()))
+				.catch(err => reject(err));
 			}))
-		));
+		);
 	})
-	.then(dbputs => Promise.all(
-		dbputs.map(putparam => db.putItem(putparam).promise())
-	))
 	.catch(err => console.error(err));

@@ -26,7 +26,7 @@ exports.handler = async event => {
 	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */
 	const parseMetadata = /([0-9]*)[ \t]*(.*)[\(](.*),(.*?)[\)]*\.(?=[^.]*$)/g;
 	const fields = parseMetadata.exec(source_filename);
-	const rank = !fields[1] || fields[1] === '' ? '0' : fields[1];
+	const rank = !fields[1] || fields[1] === '' ? '999999999999' : fields[1];
 	const title = fields[2].trim();
 	const category = fields[3].trim().toLowerCase();
 	const year_created = fields[4].trim();
@@ -61,7 +61,6 @@ exports.handler = async event => {
 					":t": { S: title },
 					":a": { S: artist },
 					":c": { S: category },
-					":f": { S: shave.style },
 					":y": { S: year_created },
 					":d": { S: date_added },
 					":u": { S: s3url }
@@ -71,7 +70,6 @@ exports.handler = async event => {
 					"#T": "title",
 					"#A": "artist",
 					"#C": "category",
-					"#F": "form",
 					"#Y": "year_created",
 					"#D": "date_added",
 					"#U": modified_attribute
@@ -81,7 +79,6 @@ exports.handler = async event => {
 					"#T = :t", 
 					"#A = :a", 
 					"#C = :c", 
-					"#F = :f", 
 					"#Y = :y", 
 					"#D = :d", 
 					"#U = :u", 
