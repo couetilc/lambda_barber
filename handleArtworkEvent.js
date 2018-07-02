@@ -2,6 +2,27 @@ const aws = require('aws-sdk');
 const lambda = new aws.Lambda({apiVersion: '2015-03-31'});
 const db = new aws.DynamoDB({apiVersion: '2012-08-10'});
 
+async function getCategoryArtwork(category) {
+	return new Promise((resolve, reject) => db.scan({
+		TableName: "artwork",
+		ProjectionExpression: "#R, #T, #UP, #UO, #YC",
+		ExpressionAttributeNames: {
+			"#C": "category",
+			"#R": "rank",
+			"#T": "title",
+			"#UP": "url_preview",
+			"#UO": "url_original",
+			"#YC": "year_created"
+		},
+		ExpressionAttributeValues: {":c": {S: category}},
+		FilterExpression: "#C = :c"
+	}).promise().then(data => resolve(
+		console.log(JSON.stringify(data))
+	)).catch(err => reject(
+		console.log(err)
+	)));
+}
+
 exports.handler = async event => {
 	console.log(JSON.stringify(event));
 	/* Iterate through Records and grab all categories changed 	*/
@@ -16,7 +37,14 @@ exports.handler = async event => {
 			return rec.dynamodb.OldImage.category.S;
 		}
 	}))];
-	console.log(JSON.stringify(categories));
+
+	try {
+		return await Promise.all(
+			categories.map(category => getCategoryArtwork(category))
+		);
+	} catch (error) {
+		console.log(error);
+	}
 /*
 	await Promise.all(categories.map(category => new Promise(
 		(resolve, reject) => { db.scan({
