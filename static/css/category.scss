@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+
+$heading_color: rgba(255,255,255,.85);
+
+html, body {
+    margin: 0;
+    padding: 0;
+    z-index: -10;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+div.background {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -5;
+    background-image: url('/static/img/westerlund2.jpg');
+    background-size: cover;
+}
+
+#logo {
+    min-width: 300px;
+    width: 50%;
+}
+
+section.portfolio {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+div.icon-bar {
+    display: flex;
+    padding: .5em .25em .25em .25em;
+    flex-flow: column nowrap;
+    align-items: center;
+    align-self: center;
+
+    position: fixed;
+    left: 0;
+    top: 35%;
+
+    background-color: rgba(63,81,181,.8);
+    border-radius: 0em 1em 1em 0em;
+    box-shadow: 0px 0px 10px 5px black;
+
+    a {
+        color: white;
+        display: inline;
+        margin: .1em .25em;
+        padding: 0;
+
+        > svg {
+            height: 1.75em;
+            width: 1.75em;
+        }
+    }
+}
+
+h2 {
+    padding: 0;
+    margin: 1em 10% .5em 10%;
+    font-size: 2em;
+    font-family: 'Abril Fatface';
+    align-self: flex-start;
+    color: $heading_color;
+
+    span {
+        border-bottom: 4px solid $heading_color;
+        text-transform: uppercase;
+        font-size: 1.5em;
+        text-shadow: -5px -5px 5px rgba(0, 0, 0, 1);
+    }
+}
+
+div.previews {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    min-width: 320px;
+    width: 90%;
+    
+    div.poster {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            height: auto;
+            width: auto;
+            border: 2px solid white;
+            box-shadow: 0px 0px 10px 5px;
+            margin: 5px;
+        }
+    }
+}
+
+span.credit {
+    font-size: .9em;
+    color: #7e7e7e;
+    align-self: flex-end;
+    margin: .25em 1em;
+    padding: 0;
+
+    a {
+        color: #bcbcbc;
+    }
+}
