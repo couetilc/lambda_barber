@@ -38,7 +38,7 @@ exports.handler = async event => {
 
 	return Promise.all(categories.map(category => getCategoryArtwork(category)
 		.then(categorized_artwork => categorized_artwork.sort(
-			(a, b) => parseInt(a.rank, 10) - parseInt(b.rank, 10)
+			(a, b) => parseInt(a.rank.S, 10) - parseInt(b.rank.S, 10)
 		))
 		.then(sorted_artwork => lambda.invoke({
 			FunctionName: "touchupCategory",

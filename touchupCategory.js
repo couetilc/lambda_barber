@@ -13,6 +13,7 @@ exports.handler = async event => {
 		.join("")
 		.replace(" ", "+");
 
+	console.log(event.artwork.length);
 	if (event.artwork === undefined || event.artwork.length == 0) {
 		return s3.deleteObject({
 			Bucket: "optimized-portfolio",
