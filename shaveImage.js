@@ -24,11 +24,11 @@ exports.handler = async event => {
 		.substring(0, event.time.lastIndexOf('.')); //keep seconds
 
 	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */
-	const parseMetadata = /([0-9]*)[ \t]*(.*)[\(](.*),(.*?)[\)]*\.(?=[^.]*$)/g;
+	const parseMetadata = /(.*?)[\/]([0-9]*)[ \t]*(.*)[\(](.*?)[\)]*\.(?=[^.]*$)/g;
 	const fields = parseMetadata.exec(source_filename);
-	const rank = !fields[1] || fields[1] === '' ? '999999999999' : fields[1];
-	const title = fields[2].trim();
-	const category = fields[3].trim().toLowerCase();
+	const category = fields[1].trim().toLowerCase();
+	const rank = !fields[2] || fields[2] === '' ? '999999999999' : fields[2];
+	const title = fields[3].trim();
 	const year_created = fields[4].trim();
 	const artist = 'Olga Gorman';
 	const destination_bucket = 'optimized-portfolio';

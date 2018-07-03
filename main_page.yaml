@@ -1,6 +1,12 @@
-- category: "oil painting"
-  thumbnail: "Meules, Effet de Neige, Le Matin"
-  order: 3
-- category: "russian"
-  thumbnail: "Winter Sunset"
+- category: "mixed media"
+  thumbnail: "bright chakra"
   order: 1
+- category: "watercolor"
+  thumbnail: "calculated nature"
+  order: 2
+- category: "ink"
+  thumbnail: "babyshka"
+  order: 3
+- category: "sketchbook"
+  thumbnail: "you"
+  order: 4
