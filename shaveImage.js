@@ -89,5 +89,5 @@ exports.handler = async event => {
 		return params;
 	});
 
-	return await Promise.all(job_parameters.map(job => shaveImage(job)));
+	return Promise.all(job_parameters.map(job => shaveImage(job)));
 };

@@ -18,10 +18,10 @@ exports.handler = async event => {
 	const target_table = 'artwork';
 
 	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */
-        const parseMetadata = /([0-9]*)[ \t]*(.*)[\(](.*),(.*?)[\)]*\.(?=[^.]*$)/g;
+        const parseMetadata = /(.*?)[\/]([0-9]*)[ \t]*(.*)[\(](.*?)[\)]*\.(?=[^.]*$)/g;
         const fields = parseMetadata.exec(source_filename);
-        const title = fields[2].trim();
-        const category = fields[3].trim().toLowerCase();
+        const category = fields[1].trim().toLowerCase();
+        const title = fields[3].trim();
         const year_created = fields[4].trim();
         const artist = 'Olga Gorman';
 
