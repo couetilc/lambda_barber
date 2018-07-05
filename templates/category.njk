@@ -28,22 +28,31 @@
             </a>
         </div>
 
-        <div class="background"></div>
-
         <section class="portfolio">
-            <h2><span>{{ category }}</span></h2>
+            <div class="title">
+                <h2><span>{{ category }}</span></h2>
+                <a href="/">
+                    <img id="logo" src="/static/img/logo-oneline-oaa_cloud.png">
+                </a>
+            </div>
 
             <div class="previews">
 
                 {% for piece in artwork %}
                 <div class="poster">
-                    <img alt="Piece from the {{ category }} category" src="{{ piece.url_preview.S }}">
+                    <a href="{{ piece.url_original.S }}">
+                        <img alt="Piece from the {{ category }} category" src="{{ piece.url_preview.S }}">
+                    </a>
+                    <div>
+                        <a href="{{ piece.url_original.S }}">
+                            <span class="piece-title">{{ piece.title.S | title }}</span>
+                        </a>
+                        <span class="piece-year">{{ piece.year_created.S }}</span>
+                    </div>
                 </div>
                 {% endfor %}
 
             </div>
         </section>
-
-        <span class="credit">Background credit <a href="https://www.spacetelescope.org/images/heic1509a/">"Westerlund 2 (ESA/Hubble)"</a></span>
     </body>
 </html>

@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css?family=Abril+Fatface');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
 $heading_color: rgba(255,255,255,.85);
 
 html, body {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
     z-index: -10;
@@ -11,20 +13,20 @@ html, body {
 body {
     display: flex;
     flex-flow: column nowrap;
-}
-
-div.background {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: -5;
-    background-image: url('/static/img/westerlund2.jpg');
+    background-image: url('/static/img/Rectangle.png');
     background-size: cover;
+    background-attachment: fixed;
 }
 
-#logo {
-    min-width: 300px;
-    width: 50%;
+
+div.title {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+
+    #logo {
+        height: 3.5em;
+    }
 }
 
 section.portfolio {
@@ -64,7 +66,7 @@ div.icon-bar {
 
 h2 {
     padding: 0;
-    margin: 1em 10% .5em 10%;
+    margin: .1em 5% .25em 10%;
     font-size: 2em;
     font-family: 'Abril Fatface';
     align-self: flex-start;
@@ -94,14 +96,38 @@ div.previews {
         flex-flow: column nowrap;
         justify-content: center;
         align-items: center;
+        margin: .2em 0em;
 
         img {
             height: auto;
             width: auto;
-            border: 2px solid white;
-            box-shadow: 0px 0px 10px 5px;
+            border: 2px solid black;
+            box-shadow: 0px 0px 5px 0px white;
             margin: 5px;
         }
+
+        div {
+            font-family: 'Open Sans', sans-serif;
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: baseline;
+
+            a {
+                text-decoration: none;
+            }
+
+            & .piece-title {
+                font-size: 1em;
+                margin: 0em .25em;
+                color: #cab6b4;
+            }
+
+            & .piece-year {
+                font-size: .75em;
+                color: dimgrey;
+            }
+        }
+
     }
 }
 
@@ -114,5 +140,27 @@ span.credit {
 
     a {
         color: #bcbcbc;
+    }
+}
+
+@media (max-width: 800px) {
+    div.title {
+        display: flex;
+        flex-flow: column nowrap;
+
+        h2 {
+            order: 2;
+        }
+
+        a {
+            display: flex;
+            flex-flow: column nowrap;
+        }
+
+        #logo {
+            order: 1;
+            max-height: 3.5em;
+            align-self: center;
+        }
     }
 }
