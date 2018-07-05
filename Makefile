@@ -3,8 +3,8 @@ USER="962610988997"
 SRCBUCKET="arn:aws:s3:::portfolio-originals"
 ZIPPATH="fileb://~/lambda_barber/"
 RUNTIME="nodejs8.10"
-TIMEOUT=60
-MEMORYSIZE=256
+TIMEOUT=300
+MEMORYSIZE=512
 
 .PHONY: zip 
 zip: handlePortfolioPut.zip shaveImage.zip updateCategoriesSettings.zip handlePortfolioDelete.zip trimDatabase.zip handleCategoriesEvent.zip touchupIndex.zip handleArtworkEvent.zip touchupCategory.zip razorSharp.js
