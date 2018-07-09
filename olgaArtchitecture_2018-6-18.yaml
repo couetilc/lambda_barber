@@ -1,0 +1,343 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    9897687d-2f7c-428d-bff7-fe185fd6d573:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 540
+        'y': 270
+      z: 0
+      embeds: []
+    8e4365c1-8f45-4be4-a930-ce30d6a2747f:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: -70
+        'y': 270
+      z: 0
+      embeds: []
+    d6f713d2-a60c-4d37-95a1-ad4f90618e4a:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 440
+        'y': 230
+      z: 0
+      embeds: []
+      dependson:
+        - 9897687d-2f7c-428d-bff7-fe185fd6d573
+    f1e3c14b-cc1c-4871-ab9a-355913923532:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 440
+        'y': 310
+      z: 0
+      embeds: []
+      dependson:
+        - 9897687d-2f7c-428d-bff7-fe185fd6d573
+    94a725ce-3cde-4aa2-aaf5-fe83b07c8605:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 340
+        'y': 190
+      z: 0
+      embeds: []
+      dependson:
+        - d6f713d2-a60c-4d37-95a1-ad4f90618e4a
+        - 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+        - 1fa8e855-cfaf-452b-a954-06128f508964
+    893afcf1-e599-473f-b8b1-f58ad021c342:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 340
+        'y': 260
+      z: 0
+      embeds: []
+      dependson:
+        - d6f713d2-a60c-4d37-95a1-ad4f90618e4a
+        - 9c96fee4-68e4-4310-b548-9df2c7f5e5d5
+    f617c5a6-691b-4ddc-80d4-5ebedc3be2a0:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 340
+        'y': 340
+      z: 0
+      embeds: []
+      dependson:
+        - f1e3c14b-cc1c-4871-ab9a-355913923532
+        - 1fa8e855-cfaf-452b-a954-06128f508964
+        - 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+    559bb154-82cd-44dd-a754-747f06486c55:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 120
+        'y': 230
+      z: 0
+      embeds: []
+      dependson:
+        - 1fa8e855-cfaf-452b-a954-06128f508964
+    6712eec1-7481-4e58-b44c-dee771c13b57:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 120
+        'y': 310
+      z: 0
+      embeds: []
+      dependson:
+        - 9c96fee4-68e4-4310-b548-9df2c7f5e5d5
+    195ce0a6-248b-4866-b4da-025bc6af6917:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 20
+        'y': 230
+      z: 0
+      embeds: []
+      dependson:
+        - 559bb154-82cd-44dd-a754-747f06486c55
+        - 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+        - 9897687d-2f7c-428d-bff7-fe185fd6d573
+    e317da34-5428-4288-b792-1d11c586e5c6:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 20
+        'y': 310
+      z: 0
+      embeds: []
+      dependson:
+        - 6712eec1-7481-4e58-b44c-dee771c13b57
+        - 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+        - 9897687d-2f7c-428d-bff7-fe185fd6d573
+    1fa8e855-cfaf-452b-a954-06128f508964:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 230
+        'y': 230
+      z: 0
+      embeds: []
+    9c96fee4-68e4-4310-b548-9df2c7f5e5d5:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 230
+        'y': 310
+      z: 0
+      embeds: []
+    0be77a67-ca1d-4897-aede-300997a46dff:
+      source:
+        id: 893afcf1-e599-473f-b8b1-f58ad021c342
+      target:
+        id: d6f713d2-a60c-4d37-95a1-ad4f90618e4a
+      z: 11
+    88b3fd16-0dc5-4aa9-bf0f-bdce9734e0be:
+      source:
+        id: f617c5a6-691b-4ddc-80d4-5ebedc3be2a0
+      target:
+        id: f1e3c14b-cc1c-4871-ab9a-355913923532
+      z: 12
+    8979088a-8405-4ffe-a366-a945697dc1ef:
+      source:
+        id: 94a725ce-3cde-4aa2-aaf5-fe83b07c8605
+      target:
+        id: 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+      z: 14
+    0410d795-b7d4-4f7d-aeb2-bafc788f5191:
+      source:
+        id: 893afcf1-e599-473f-b8b1-f58ad021c342
+      target:
+        id: 9c96fee4-68e4-4310-b548-9df2c7f5e5d5
+      z: 15
+    fa45c6f2-8253-4f5e-a0b8-7c37c55770b2:
+      source:
+        id: 94a725ce-3cde-4aa2-aaf5-fe83b07c8605
+      target:
+        id: 1fa8e855-cfaf-452b-a954-06128f508964
+      z: 16
+    52670897-7fc2-428d-8fd8-275a7bc99cc8:
+      source:
+        id: f617c5a6-691b-4ddc-80d4-5ebedc3be2a0
+      target:
+        id: 1fa8e855-cfaf-452b-a954-06128f508964
+      z: 17
+    b4302fdb-db53-40ef-adc1-7eaa168d8137:
+      source:
+        id: 6712eec1-7481-4e58-b44c-dee771c13b57
+      target:
+        id: 9c96fee4-68e4-4310-b548-9df2c7f5e5d5
+      z: 18
+    0ee67132-7733-4566-aa00-2c6b04609445:
+      source:
+        id: 559bb154-82cd-44dd-a754-747f06486c55
+      target:
+        id: 1fa8e855-cfaf-452b-a954-06128f508964
+      z: 19
+    5618c6b3-7f34-4f31-9b40-0919760d7e67:
+      source:
+        id: f617c5a6-691b-4ddc-80d4-5ebedc3be2a0
+      target:
+        id: 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+      z: 20
+    5e4ca05a-3a26-4634-9182-ba8f86994a81:
+      source:
+        id: e317da34-5428-4288-b792-1d11c586e5c6
+      target:
+        id: 6712eec1-7481-4e58-b44c-dee771c13b57
+      z: 21
+    4da4010d-4bed-40a3-b747-ef667da556c2:
+      source:
+        id: 195ce0a6-248b-4866-b4da-025bc6af6917
+      target:
+        id: 559bb154-82cd-44dd-a754-747f06486c55
+      z: 22
+    828a52f3-02a6-43ff-9e5b-410ba23907b9:
+      source:
+        id: e317da34-5428-4288-b792-1d11c586e5c6
+      target:
+        id: 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+      z: 23
+    906331c7-f9d6-4002-bbc7-78c707f18aa1:
+      source:
+        id: 195ce0a6-248b-4866-b4da-025bc6af6917
+      target:
+        id: 8e4365c1-8f45-4be4-a930-ce30d6a2747f
+      z: 24
+    15223919-1b5f-4286-9067-8ee46571786e:
+      source:
+        id: 195ce0a6-248b-4866-b4da-025bc6af6917
+      target:
+        id: 9897687d-2f7c-428d-bff7-fe185fd6d573
+      z: 25
+    4d7cd6b0-7d6d-4f96-bbc8-ba7a00077372:
+      source:
+        id: e317da34-5428-4288-b792-1d11c586e5c6
+      target:
+        id: 9897687d-2f7c-428d-bff7-fe185fd6d573
+      z: 26
+Resources:
+  Portfolio:
+    Type: 'AWS::S3::Bucket'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9897687d-2f7c-428d-bff7-fe185fd6d573
+  handlePortfolioPut:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: d6f713d2-a60c-4d37-95a1-ad4f90618e4a
+    DependsOn:
+      - Portfolio
+  handlePortfolioDelete:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: f1e3c14b-cc1c-4871-ab9a-355913923532
+    DependsOn:
+      - Portfolio
+  shaveImage:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 94a725ce-3cde-4aa2-aaf5-fe83b07c8605
+    DependsOn:
+      - handlePortfolioPut
+      - PublicAssets
+      - artwork
+  updateCategorySettings:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 893afcf1-e599-473f-b8b1-f58ad021c342
+    DependsOn:
+      - handlePortfolioPut
+      - categories
+  trimDatabase:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: f617c5a6-691b-4ddc-80d4-5ebedc3be2a0
+    DependsOn:
+      - handlePortfolioDelete
+      - artwork
+      - PublicAssets
+  artwork:
+    Type: 'AWS::DynamoDB::Table'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 1fa8e855-cfaf-452b-a954-06128f508964
+  categories:
+    Type: 'AWS::DynamoDB::Table'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 9c96fee4-68e4-4310-b548-9df2c7f5e5d5
+  handleArtworkEvent:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 559bb154-82cd-44dd-a754-747f06486c55
+    DependsOn:
+      - artwork
+  handleCategoriesEvent:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 6712eec1-7481-4e58-b44c-dee771c13b57
+    DependsOn:
+      - categories
+  touchupCategory:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 195ce0a6-248b-4866-b4da-025bc6af6917
+    DependsOn:
+      - handleArtworkEvent
+      - PublicAssets
+      - Portfolio
+  touchupIndex:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: e317da34-5428-4288-b792-1d11c586e5c6
+    DependsOn:
+      - handleCategoriesEvent
+      - PublicAssets
+      - Portfolio
+  PublicAssets:
+    Type: 'AWS::S3::Bucket'
+    Properties: {}
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 8e4365c1-8f45-4be4-a930-ce30d6a2747f

@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: 2010-09-09
+Resources:
+  Portfolio:
+    Type: 'AWS::S3::Bucket'
+    Properties: {}
+  handlePortfolioPut:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - Portfolio
+  handlePortfolioDelete:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - Portfolio
+  shaveImage:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - handlePortfolioPut
+      - PublicAssets
+      - artwork
+  updateCategorySettings:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - handlePortfolioPut
+      - categories
+  trimDatabase:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - handlePortfolioDelete
+      - artwork
+      - PublicAssets
+  artwork:
+    Type: 'AWS::DynamoDB::Table'
+    Properties: {}
+  categories:
+    Type: 'AWS::DynamoDB::Table'
+    Properties: {}
+  handleArtworkEvent:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - artwork
+  handleCategoriesEvent:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - categories
+  touchupCategory:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - handleArtworkEvent
+      - PublicAssets
+      - Portfolio
+  touchupIndex:
+    Type: 'AWS::Lambda::Function'
+    Properties: {}
+    DependsOn:
+      - handleCategoriesEvent
+      - PublicAssets
+      - Portfolio
+  PublicAssets:
+    Type: 'AWS::S3::Bucket'
+    Properties: {}
