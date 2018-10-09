@@ -13,7 +13,7 @@ html, body {
 body {
     display: flex;
     flex-flow: column nowrap;
-    background-image: url('/static/img/Rectangle.png');
+    background-image: url('../img/Rectangle.png');
     background-size: cover;
     background-attachment: fixed;
 }
@@ -140,6 +140,34 @@ span.credit {
 
     a {
         color: #bcbcbc;
+    }
+}
+
+.page-404 {
+    display: flex;
+    flex-flow: column nowrap;
+
+    h2 > span {
+        border-bottom: none;
+    }
+}
+
+.message-404 {
+    color: white;
+    font-size: 2rem;
+    width: 80%;
+    text-align: center;
+    align-self: center;
+}
+
+.logo-404 {
+    align-self: center;
+    display: flex;
+    flex-flow: column nowrap;
+
+    >img {
+        width: 90%;
+        align-self: center;
     }
 }
 

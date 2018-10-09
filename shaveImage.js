@@ -51,6 +51,7 @@ exports.handler = async event => {
 			s3put: {
 				Bucket: destination_bucket,
 				Key: path,
+                ContentType: "image/jpeg",
 				ACL: 'public-read'
 			},
 			cut: shave.cut,
