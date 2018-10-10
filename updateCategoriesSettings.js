@@ -30,7 +30,7 @@ exports.handler = async event => s3.getObject({
 						"category_url": { 
 							S: ["category/", entry.category, ".html"]
 								.join("")
-								.replace(" ", "+")
+								.replace(" ", "_")
 						}
 					},
 					TableName: "categories"

@@ -11,7 +11,7 @@ exports.handler = async event => {
 	/* put rendered HTML page into public s3 bucket			*/
 	const category_url = ["category/", event.category, ".html"]
 		.join("")
-		.replace(" ", "+");
+		.replace(" ", "_");
 
 	console.log(event.artwork.length);
 	if (event.artwork === undefined || event.artwork.length == 0) {
