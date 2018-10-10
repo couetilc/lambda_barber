@@ -179,6 +179,11 @@ span.credit {
 
         h2 {
             order: 2;
+            align-self: center;
+
+            span {
+                font-size: 1em;
+            }
         }
 
         a {

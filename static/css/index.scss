@@ -16,7 +16,7 @@ html {
 
 body {
     @include biggest-box;
-    background-image: url("../../static/img/background.jpg");
+    background-image: url("../../static/img/background.png");
     background-attachment: fixed;
     background-size: cover;
     display: flex;
