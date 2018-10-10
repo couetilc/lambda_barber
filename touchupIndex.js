@@ -13,7 +13,7 @@ exports.handler = async event => s3.getObject({
 			event.context
 	)))
 	.then(template => s3.putObject({
-		Bucket: "optimized-portfolio",
+		Bucket: "olgaanastasiaart.com",
 		Key: "index.html",
 		ACL: "public-read",
 		ContentType: "text/html",

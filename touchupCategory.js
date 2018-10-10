@@ -16,7 +16,7 @@ exports.handler = async event => {
 	console.log(event.artwork.length);
 	if (event.artwork === undefined || event.artwork.length == 0) {
 		return s3.deleteObject({
-			Bucket: "optimized-portfolio",
+			Bucket: "olgaanastasiaart.com",
 			Key: category_url
 		});
 	}
@@ -31,7 +31,7 @@ exports.handler = async event => {
 			event
 	)))
 	.then(template => s3.putObject({
-		Bucket: "optimized-portfolio",
+		Bucket: "olgaanastasiaart.com",
 		Key: category_url,
 		ACL: "public-read",
 		ContentType: "text/html",

@@ -14,7 +14,7 @@ exports.handler = async event => {
 	console.log(JSON.stringify(event));
 	
         const source_filename = event.key.replace(/\+/g, ' ');
-	const target_bucket = 'optimized-portfolio';
+	const target_bucket = 'olgaanastasiaart.com';
 	const target_table = 'artwork';
 
 	/* Source Filename Format: "[RANK]<TITLE>(<CATEGORY>, <YEAR>)" */

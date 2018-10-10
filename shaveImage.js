@@ -31,7 +31,7 @@ exports.handler = async event => {
 	const title = fields[3].trim();
 	const year_created = fields[4].trim();
 	const artist = 'Olga Gorman';
-	const destination_bucket = 'optimized-portfolio';
+	const destination_bucket = 'olgaanastasiaart.com';
 
 	const job_parameters = razor.shaves.map(shave => {
 		const filename = [title, 'by', artist, year_created]
