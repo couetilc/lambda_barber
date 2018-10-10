@@ -33,7 +33,6 @@ exports.handler = async event => {
 	.then(template => s3.putObject({
 		Bucket: "olgaanastasiaart.com",
 		Key: category_url,
-		ACL: "public-read",
 		ContentType: "text/html",
 		Body: template
 	}).promise())

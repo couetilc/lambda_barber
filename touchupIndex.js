@@ -15,7 +15,6 @@ exports.handler = async event => s3.getObject({
 	.then(template => s3.putObject({
 		Bucket: "olgaanastasiaart.com",
 		Key: "index.html",
-		ACL: "public-read",
 		ContentType: "text/html",
 		Body: template
 	}).promise())
