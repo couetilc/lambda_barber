@@ -12,13 +12,13 @@ $poster-height: 160px;
 
 html {
     @include biggest-box;
+    background-image: url("../../static/img/background.png");
+    background-attachment: fixed;
+    background-size: cover;
 }
 
 body {
     @include biggest-box;
-    background-image: url("../../static/img/background.png");
-    background-attachment: fixed;
-    background-size: cover;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
