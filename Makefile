@@ -1,7 +1,7 @@
 ROLE="arn:aws:iam::962610988997:role/s3_dynamo_4lambda"
 USER="962610988997"
 SRCBUCKET="arn:aws:s3:::portfolio-originals"
-ZIPPATH="fileb://~/development/lambda_barber/"
+ZIPPATH="fileb://~/lambda_barber/"
 RUNTIME="nodejs8.10"
 TIMEOUT=300
 MEMORYSIZE=512
