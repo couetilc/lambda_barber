@@ -40,8 +40,7 @@ exports.handler = async event => {
 			.join('/');
 		const primary_key = [category, title]
 			.join(':');
-		const s3url = encodeURI('https://s3.amazonaws.com/' 
-					+ destination_bucket + '/' + path);
+		const rel_url = encodeURI('/' + path);
 		const modified_attribute = "url_" + shave.style;
 		const params = { 
 			s3get: {
@@ -63,7 +62,7 @@ exports.handler = async event => {
 					":c": { S: category },
 					":y": { S: year_created },
 					":d": { S: date_added },
-					":u": { S: s3url }
+					":u": { S: rel_url }
 				},
 				ExpressionAttributeNames: {
 					"#R": "rank",
